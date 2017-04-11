@@ -3,7 +3,8 @@ import { NavController, AlertController, LoadingController, Loading } from 'ioni
 import { Mydata } from '../../providers/data';
 import { RegisterPage } from '../register/register';
 import { HomePage } from '../home/home';
-
+import { DataUtility } from '../../providers/data-utility';
+import 'rxjs/Rx'; 
 @Component({
     selector: 'page-login',
     templateUrl: 'login.html'
@@ -11,11 +12,21 @@ import { HomePage } from '../home/home';
 export class LoginPage {
     loading: Loading;
     registerCredentials = { email: '', password: '' };
-
-    constructor(private nav: NavController, private auth: Mydata, private alertCtrl: AlertController, private loadingCtrl: LoadingController) { }
+    movie: any;
+    constructor(private nav: NavController, private auth: Mydata,private util:DataUtility, private alertCtrl: AlertController, private loadingCtrl: LoadingController) { }
 
     public createAccount() {
         this.nav.push(RegisterPage);
+    }
+    ngOnInit() {                
+        this.util.load().subscribe(response1 => {
+        this.movie = response1.children;
+            console.log(this.movie);
+        });        
+        
+        //console.log(this.util.data["Username"]);
+        //.subscribe(response => { this.movie = response; });        
+        //console.log(this.movie); s
     }
 
     public login() {

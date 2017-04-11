@@ -24,6 +24,7 @@ export class User {
 export class Mydata {
     Mydata: any = [];
     currentUser: User;
+    data: any;
     constructor(public http: Http) {
         this.Mydata = null;
     }
@@ -49,12 +50,19 @@ export class Mydata {
         if (credentials.email === null || credentials.password === null) {
             return Observable.throw("Please insert credentials");
         } else {
+        
+//       var url = '192.168.0.101:2021/webservices/authenticationLogin?username=' + credentials.email + '&password=' +  credentials.password;
+//       var response = this.http.get(url).map(res => res.json());
+//        //return response;
+////        console.log(JSON.stringify(response));
+//console.log(this.data);
+
             return Observable.create(observer => {
-                // At this point make a request to your backend to make a real check!
+                // At this point make a request to your backend to make a real check!             
                 let access = (credentials.password === "pass" && credentials.email === "email");
                 this.currentUser = new User('Simon', 'saimon@devdactic.com');
                 observer.next(access);
-                observer.complete();
+                observer.complete();                
             });
         }
     }
